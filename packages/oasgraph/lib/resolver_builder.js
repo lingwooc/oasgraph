@@ -238,7 +238,10 @@ function getResolver({ operation, argsFromLink = {}, argsFromParent = [], payloa
                     // pass on _oasgraph to subsequent resolvers
                     if (saneData &&
                         typeof saneData === 'object') {
+                        if(ctx && ctx.process)
+                            saneData = ctx.process(saneData);
                         if (Array.isArray(saneData)) {
+                        
                             saneData.forEach((element) => {
                                 if (typeof element._oasgraph === 'undefined') {
                                     element._oasgraph = {
@@ -267,6 +270,8 @@ function getResolver({ operation, argsFromLink = {}, argsFromParent = [], payloa
                             saneData._oasgraph.data[getIdentifier(info)] = resolveData;
                         }
                     }
+                      if(ctx)
+                          ctx.data = resolveData;
                     resolve(saneData);
                 }
             });
