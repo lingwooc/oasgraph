@@ -300,6 +300,8 @@ export function getResolver({
           // pass on _oasgraph to subsequent resolvers
           if (saneData &&
             typeof saneData === 'object') {
+            if(ctx && ctx.process)
+              saneData = ctx.process(saneData);
             if (Array.isArray(saneData)) {
               saneData.forEach((element) => {
                 if (typeof element._oasgraph === 'undefined') {
