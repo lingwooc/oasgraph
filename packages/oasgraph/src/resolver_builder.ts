@@ -332,7 +332,8 @@ export function getResolver({
               saneData._oasgraph.data[getIdentifier(info)] = resolveData
             }
           }
-
+          if(ctx)
+              ctx.data = resolveData;
           resolve(saneData)
         }
       })
